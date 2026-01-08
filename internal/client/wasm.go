@@ -75,8 +75,22 @@ func (a *APIClient) ConnectionOK() bool {
 
 // IsNamespaced checks if a resource is namespaced (mock implementation).
 func (a *APIClient) IsNamespaced(gvr string) bool {
-	// Most resources are namespaced
-	return true
+	// Common cluster-scoped resources
+	clusterScoped := map[string]bool{
+		"nodes":              true,
+		"no":                 true,
+		"namespaces":         true,
+		"ns":                 true,
+		"persistentvolumes":  true,
+		"pv":                 true,
+		"clusterroles":       true,
+		"clusterrolebindings": true,
+		"storageclasses":     true,
+		"sc":                 true,
+	}
+	
+	// In demo mode, check if resource is cluster-scoped
+	return !clusterScoped[gvr]
 }
 
 // CanI checks if user can perform an action (always true in demo mode).

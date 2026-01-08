@@ -100,5 +100,8 @@ func main() {
 	fmt.Println("")
 	fmt.Println("Try these commands in the browser console!")
 	
+	// Keep the Go runtime alive indefinitely for browser environment.
+	// In WASM, the program needs to stay running to handle JavaScript callbacks.
+	// The browser's page lifecycle manages cleanup when the tab is closed.
 	<-done
 }

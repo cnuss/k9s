@@ -70,7 +70,26 @@ WebAssembly.instantiateStreaming(fetch('k9s.wasm'), go.importObject)
     .catch((err) => {
         updateStatus('Failed to load K9s: ' + err.message, true);
         console.error('Failed to instantiate WASM module:', err);
-        appendOutput('Error loading K9s: ' + err.message, 'error');
+        
+        // Provide specific error messages for common issues
+        let errorDetails = 'Error loading K9s: ' + err.message;
+        if (err.message.includes('fetch')) {
+            errorDetails += '\n\nNetwork Error: Unable to fetch k9s.wasm. Make sure:';
+            errorDetails += '\n  • The web server is running';
+            errorDetails += '\n  • k9s.wasm exists in the web directory';
+            errorDetails += '\n  • CORS settings allow WASM file loading';
+        } else if (err.message.includes('streaming')) {
+            errorDetails += '\n\nStreaming Error: Your browser may not support WebAssembly streaming.';
+            errorDetails += '\n  • Try a modern browser (Chrome, Firefox, Safari, Edge)';
+            errorDetails += '\n  • Check that WASM is enabled in browser settings';
+        } else if (err.message.includes('import')) {
+            errorDetails += '\n\nImport Error: WASM import object mismatch.';
+            errorDetails += '\n  • Ensure wasm_exec.js matches your Go version';
+            errorDetails += '\n  • Try rebuilding with: make build-wasm';
+        }
+        
+        appendOutput(errorDetails, 'error');
+        appendOutput('', 'error');
         appendOutput('Make sure k9s.wasm and wasm_exec.js are present in the same directory.', 'error');
     });
 
