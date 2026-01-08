@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright Authors of K9s
 
+//go:build !js || !wasm
+
 package config
 
 import (
