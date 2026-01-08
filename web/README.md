@@ -71,14 +71,22 @@ The demo includes mock Kubernetes data:
 - Mock namespaces: `default`, `kube-system`, `demo-app`
 - Mock resources: pods, deployments, services
 
-## Browser Console
+## JavaScript API
 
 You can interact with the running WASM instance from the browser console:
 
 ```javascript
 // Get demo status
 k9sDemo()
-// Returns: {version: "v0.50.16-wasm-demo", status: "running", mode: "demo"}
+// Returns: {version: "v0.50.16-wasm-demo", status: "running", mode: "demo", cluster: "demo-cluster", context: "demo-context"}
+
+// List namespaces
+k9sGetNamespaces()
+// Returns: ["default", "kube-system", "demo-app"]
+
+// List pods
+k9sGetPods()
+// Returns: Array of pod objects with name, namespace, status, ready fields
 ```
 
 ## Limitations
