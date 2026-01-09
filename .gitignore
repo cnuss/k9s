@@ -26,3 +26,5 @@ kind
 /stresser
 __debug_bin*
 fg.yaml
+/web/k9s.wasm
+/web/wasm_exec.js
