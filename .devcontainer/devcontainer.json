@@ -1,0 +1,60 @@
+{
+  "name": "K9s Development (with WASM)",
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.24-bookworm",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.makefile-tools",
+        "redhat.vscode-yaml",
+        "davidanson.vscode-markdownlint"
+      ],
+      "settings": {
+        "go.useLanguageServer": true,
+        "go.lintTool": "golangci-lint",
+        "go.lintOnSave": "package",
+        "go.formatTool": "goimports",
+        "go.gopath": "/go",
+        "go.goroot": "/usr/local/go",
+        "files.eol": "\n",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  "forwardPorts": [8080, 8081, 8082],
+  "portsAttributes": {
+    "8080": {
+      "label": "K9s WASM Demo",
+      "onAutoForward": "notify"
+    },
+    "8081": {
+      "label": "Alternative Port 1",
+      "onAutoForward": "silent"
+    },
+    "8082": {
+      "label": "Alternative Port 2",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "remoteUser": "vscode",
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/bashrc,target=/home/vscode/.bashrc,type=bind,consistency=cached"
+  ]
+}

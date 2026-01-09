@@ -1,0 +1,41 @@
+# K9s Development Environment - Custom Bashrc
+
+# Color prompt
+PS1='\[\033[01;32m\]\u@k9s-dev\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# Aliases for k9s development
+alias k9s-build='go build -o k9s main.go'
+alias k9s-wasm='make build-wasm'
+alias k9s-test='go test ./...'
+alias k9s-serve='cd web && python3 -m http.server 8080'
+alias k9s-lint='golangci-lint run'
+
+# Quick navigation
+alias cdweb='cd ~/work/k9s/k9s/web'
+alias cdcmd='cd ~/work/k9s/k9s/cmd'
+alias cdinternal='cd ~/work/k9s/k9s/internal'
+
+# Environment variables
+export GOPATH=/go
+export PATH=$GOPATH/bin:$PATH
+export CGO_ENABLED=0
+
+# Welcome message
+echo ""
+echo "🐶 K9s Development Environment"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "Quick Commands:"
+echo "  k9s-build  - Build k9s binary"
+echo "  k9s-wasm   - Build WASM binary"
+echo "  k9s-test   - Run tests"
+echo "  k9s-serve  - Start web server for WASM demo"
+echo "  k9s-lint   - Run linter"
+echo ""
+echo "Navigation:"
+echo "  cdweb      - Go to web directory"
+echo "  cdcmd      - Go to cmd directory"
+echo "  cdinternal - Go to internal directory"
+echo ""
+echo "📚 See WASM_SUPPORT.md for WASM development guide"
+echo ""
